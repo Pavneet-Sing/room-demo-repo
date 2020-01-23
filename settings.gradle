@@ -1,1 +1,1 @@
-include ':room-demo-android-q'
+include ':room-demo-android-q', ':room-demo-rxandroid'

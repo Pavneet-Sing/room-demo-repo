@@ -1,4 +1,4 @@
-package com.example.pavneet_singh.room_demo_android_q.notedb;
+package com.example.pavneet_singh.room_demo_rxandroid.notedb;
 
 import android.content.Context;
 
@@ -7,10 +7,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.example.pavneet_singh.room_demo_android_q.notedb.dao.NoteDao;
-import com.example.pavneet_singh.room_demo_android_q.notedb.model.Note;
-import com.example.pavneet_singh.room_demo_android_q.util.Constants;
-import com.example.pavneet_singh.room_demo_android_q.util.DateRoomConverter;
+import com.example.pavneet_singh.room_demo_rxandroid.notedb.dao.NoteDao;
+import com.example.pavneet_singh.room_demo_rxandroid.notedb.model.Note;
+import com.example.pavneet_singh.room_demo_rxandroid.util.Constants;
+import com.example.pavneet_singh.room_demo_rxandroid.util.DateRoomConverter;
 
 /**
  * Created by Pavneet_Singh on 12/31/17.
