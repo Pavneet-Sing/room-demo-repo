@@ -1,4 +1,4 @@
-package com.example.pavneet_singh.room_demo_rxandroid;
+package com.example.pavneet_singh.room_demo_rxandroid.ui;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pavneet_singh.room_demo_rxandroid.R;
 import com.example.pavneet_singh.room_demo_rxandroid.notedb.NoteDatabase;
 import com.example.pavneet_singh.room_demo_rxandroid.notedb.model.Note;
 import com.google.android.material.textfield.TextInputEditText;

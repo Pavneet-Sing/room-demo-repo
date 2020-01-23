@@ -16,6 +16,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -32,10 +37,13 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
     implementation 'com.google.android.material:material:1.2.0-alpha04'
+
+    // room database dependencies
     def room_version = "2.2.3"
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version"
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation "androidx.room:room-rxjava2:$room_version"
 
     // Testing
     testImplementation 'junit:junit:4.12'

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_margin="4dp"
     android:orientation="vertical"
-    tools:context="com.example.pavneet_singh.room_demo_android_q.AddNoteActivity">
+    tools:context="com.example.pavneet_singh.room_demo_rxandroid.ui.AddNoteActivity">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txtInput"

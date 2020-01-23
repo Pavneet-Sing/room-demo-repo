@@ -1,8 +1,7 @@
-package com.example.pavneet_singh.room_demo_rxandroid;
+package com.example.pavneet_singh.room_demo_rxandroid.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -13,12 +12,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pavneet_singh.room_demo_rxandroid.R;
 import com.example.pavneet_singh.room_demo_rxandroid.adapter.NotesAdapter;
 import com.example.pavneet_singh.room_demo_rxandroid.notedb.NoteDatabase;
 import com.example.pavneet_singh.room_demo_rxandroid.notedb.model.Note;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +29,7 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
     private List<Note> notes;
     private NotesAdapter notesAdapter;
     private int pos;
+    private AlertDialog optionDialog;
 
 
     @Override
@@ -40,59 +40,42 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
         displayList();
     }
 
+    /**
+     * Setup the database and live observer to show the list
+     * You can use anonymous class instead of
+     * <a href="https://developer.android.com/studio/write/java8-support#supported_features">Lambda expressions or Method reference</a> for observer as
+     * <pre>{@code
+     * noteDatabase
+     *     .getNoteDao()
+     *     .getNotes()
+     *     .observe(NoteListActivity.this, new Observer<List<Note>>() {
+     *
+     *     @Override
+     *     public void onChanged(List<Note> notes) {
+     *          // process notes result
+     *     }
+     * }}</pre>
+     */
     private void displayList() {
         noteDatabase = NoteDatabase.getInstance(NoteListActivity.this);
-        new RetrieveTask(this).execute();
-    }
-
-    private static class RetrieveTask extends AsyncTask<Void, Void, List<Note>> {
-
-        private WeakReference<NoteListActivity> activityReference;
-
-        // only retain a weak reference to the activity
-        RetrieveTask(NoteListActivity context) {
-            activityReference = new WeakReference<>(context);
-        }
-
-        @Override
-        protected List<Note> doInBackground(Void... voids) {
-            if (activityReference.get() != null)
-                return activityReference.get().noteDatabase.getNoteDao().getNotes();
-            else
-                return null;
-        }
-
-        @Override
-        protected void onPostExecute(List<Note> notes) {
-            if (notes != null && notes.size() > 0) {
-                activityReference.get().notes.clear();
-                activityReference.get().notes.addAll(notes);
-                // hides empty text view
-                activityReference.get().textViewMsg.setVisibility(View.GONE);
-                activityReference.get().notesAdapter.notifyDataSetChanged();
-            }
-        }
+        noteDatabase.getNoteDao().getNotes().observe(NoteListActivity.this, this::updateList);
     }
 
     private void initializeVies() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        textViewMsg = (TextView) findViewById(R.id.tv__empty);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        textViewMsg = findViewById(R.id.tv__empty);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(listener);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(NoteListActivity.this));
         notes = new ArrayList<>();
         notesAdapter = new NotesAdapter(notes, NoteListActivity.this);
         recyclerView.setAdapter(notesAdapter);
+        optionDialog = getItemOptionBuilder();
     }
 
-    private View.OnClickListener listener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            startActivityForResult(new Intent(NoteListActivity.this, AddNoteActivity.class), 100);
-        }
-    };
+    private View.OnClickListener listener = view -> startActivityForResult(new Intent(NoteListActivity.this, AddNoteActivity.class), 100);
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -109,7 +92,12 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
 
     @Override
     public void onNoteClick(final int pos) {
-        new AlertDialog.Builder(NoteListActivity.this)
+        this.pos = pos;
+        optionDialog.show();
+    }
+
+    private AlertDialog getItemOptionBuilder() {
+        return new AlertDialog.Builder(NoteListActivity.this)
                 .setTitle("Select Options")
                 .setItems(new String[]{"Delete", "Update"}, new DialogInterface.OnClickListener() {
                     @Override
@@ -121,7 +109,6 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
                                 listVisibility();
                                 break;
                             case 1:
-                                NoteListActivity.this.pos = pos;
                                 startActivityForResult(
                                         new Intent(NoteListActivity.this,
                                                 AddNoteActivity.class).putExtra("note", notes.get(pos)),
@@ -130,13 +117,22 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
                                 break;
                         }
                     }
-                }).show();
+                }).create();
+    }
 
+    private void updateList(List<Note> noteList) {
+        if (noteList != null && (!noteList.isEmpty())) {
+            notes.clear();
+            notes.addAll(noteList);
+            // hides empty text view
+            textViewMsg.setVisibility(View.GONE);
+            notesAdapter.notifyDataSetChanged();
+        }
     }
 
     private void listVisibility() {
         int emptyMsgVisibility = View.GONE;
-        if (notes.size() == 0) { // no item to display
+        if (notes.isEmpty()) { // no item to display
             if (textViewMsg.getVisibility() == View.GONE)
                 emptyMsgVisibility = View.VISIBLE;
         }
@@ -147,6 +143,8 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
     @Override
     protected void onDestroy() {
         noteDatabase.cleanUp();
+        if (optionDialog.isShowing())
+            optionDialog.dismiss();
         super.onDestroy();
     }
 }

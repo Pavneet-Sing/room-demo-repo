@@ -1,6 +1,7 @@
 package com.example.pavneet_singh.room_demo_rxandroid.notedb.dao;
 
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -20,7 +21,7 @@ import java.util.List;
 public interface NoteDao {
 
     @Query("SELECT * FROM " + Constants.TABLE_NAME_NOTE)
-    List<Note> getNotes();
+    LiveData<List<Note>> getNotes();
 
     /*
      * Insert the object in database
