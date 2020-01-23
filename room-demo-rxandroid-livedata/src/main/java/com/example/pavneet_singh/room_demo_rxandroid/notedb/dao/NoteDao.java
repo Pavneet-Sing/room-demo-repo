@@ -13,6 +13,9 @@ import com.example.pavneet_singh.room_demo_rxandroid.util.Constants;
 
 import java.util.List;
 
+import io.reactivex.Maybe;
+import io.reactivex.Single;
+
 /**
  * Created by Pavneet_Singh on 12/31/17.
  */
@@ -28,7 +31,7 @@ public interface NoteDao {
      * @param note, object to be inserted
      */
     @Insert
-    long insertNote(Note note);
+    Single<Long> insertNote(Note note);
 
     /*
      * update the object in database

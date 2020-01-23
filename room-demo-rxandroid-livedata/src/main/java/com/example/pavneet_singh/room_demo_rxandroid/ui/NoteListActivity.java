@@ -1,6 +1,5 @@
 package com.example.pavneet_singh.room_demo_rxandroid.ui;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -75,20 +74,7 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
         optionDialog = getItemOptionBuilder();
     }
 
-    private View.OnClickListener listener = view -> startActivityForResult(new Intent(NoteListActivity.this, AddNoteActivity.class), 100);
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100 && resultCode > 0) {
-            if (resultCode == 1) {
-                notes.add((Note) data.getSerializableExtra("note"));
-            } else if (resultCode == 2) {
-                notes.set(pos, (Note) data.getSerializableExtra("note"));
-            }
-            listVisibility();
-        }
-    }
+    private View.OnClickListener listener = view -> startActivity(new Intent(NoteListActivity.this, AddNoteActivity.class));
 
     @Override
     public void onNoteClick(final int pos) {
@@ -99,23 +85,20 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
     private AlertDialog getItemOptionBuilder() {
         return new AlertDialog.Builder(NoteListActivity.this)
                 .setTitle("Select Options")
-                .setItems(new String[]{"Delete", "Update"}, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        switch (i) {
-                            case 0:
-                                noteDatabase.getNoteDao().deleteNote(notes.get(pos));
-                                notes.remove(pos);
-                                listVisibility();
-                                break;
-                            case 1:
-                                startActivityForResult(
-                                        new Intent(NoteListActivity.this,
-                                                AddNoteActivity.class).putExtra("note", notes.get(pos)),
-                                        100);
+                .setItems(new String[]{"Delete", "Update"}, (dialogInterface, i) -> {
+                    switch (i) {
+                        case 0:
+                            noteDatabase.getNoteDao().deleteNote(notes.get(pos));
+                            notes.remove(pos);
+                            listVisibility();
+                            break;
+                        case 1:
+                            startActivityForResult(
+                                    new Intent(NoteListActivity.this,
+                                            AddNoteActivity.class).putExtra("note", notes.get(pos)),
+                                    100);
 
-                                break;
-                        }
+                            break;
                     }
                 }).create();
     }

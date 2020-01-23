@@ -75,10 +75,10 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
     }
 
     private void initializeVies() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        textViewMsg = (TextView) findViewById(R.id.tv__empty);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        textViewMsg = findViewById(R.id.tv__empty);
+        FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(listener);
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(NoteListActivity.this));
