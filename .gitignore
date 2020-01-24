@@ -26,6 +26,10 @@ out/
 # Gradle files
 .gradle/
 build/
+/room-demo-android-q/schemas/*
+/room-demo-rxandroid-livedata/schemas/*
+/room-demo-kotlin-mvvm-dagger/schemas/*
+
 
 # Local configuration file (sdk path, etc)
 local.properties
