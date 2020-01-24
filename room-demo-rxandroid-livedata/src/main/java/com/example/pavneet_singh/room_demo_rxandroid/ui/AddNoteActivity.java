@@ -26,6 +26,10 @@ public class AddNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+        initUI();
+    }
+
+    private void initUI() {
         et_title = findViewById(R.id.et_title);
         et_content = findViewById(R.id.et_content);
         noteDatabase = NoteDatabase.getInstance(AddNoteActivity.this);
@@ -49,7 +53,7 @@ public class AddNoteActivity extends AppCompatActivity {
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(rowId -> {
-                            note.setNote_id(rowId);
+                            note.setNote_id(rowId); // update rowId in database
                             finish();
                         }, Throwable::printStackTrace);
             }
