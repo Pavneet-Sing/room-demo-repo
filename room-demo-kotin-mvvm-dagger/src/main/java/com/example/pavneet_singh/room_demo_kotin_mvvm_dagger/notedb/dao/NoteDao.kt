@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.model.Note
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.util.Constants
+import io.reactivex.Completable
 import io.reactivex.Single
 
 /**
@@ -27,14 +28,14 @@ interface NoteDao {
      * @param note, object to be updated
      */
     @Update
-    fun updateNote(repos: Note)
+    fun updateNote(repos: Note): Completable
 
     /*
      * delete the object from database
      * @param note, object to be deleted
      */
     @Delete
-    fun deleteNote(note: Note)
+    fun deleteNote(note: Note): Completable
 
     // Note... is varargs, here note is an array
 /*

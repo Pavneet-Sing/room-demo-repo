@@ -13,7 +13,7 @@ import com.example.pavneet_singh.room_demo_rxandroid.util.Constants;
 
 import java.util.List;
 
-import io.reactivex.Maybe;
+import io.reactivex.Completable;
 import io.reactivex.Single;
 
 /**
@@ -38,14 +38,14 @@ public interface NoteDao {
      * @param note, object to be updated
      */
     @Update
-    void updateNote(Note repos);
+    Completable updateNote(Note repos);
 
     /*
      * delete the object from database
      * @param note, object to be deleted
      */
     @Delete
-    void deleteNote(Note note);
+    Completable deleteNote(Note note);
 
     // Note... is varargs, here note is an array
     /*

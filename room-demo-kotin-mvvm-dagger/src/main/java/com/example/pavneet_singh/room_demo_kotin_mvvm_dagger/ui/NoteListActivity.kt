@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -16,6 +17,9 @@ import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.adapter.NotesAdapte
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.NoteDataBase
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.model.Note
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 /**
@@ -30,6 +34,8 @@ class NoteListActivity : AppCompatActivity(), NotesAdapter.OnNoteItemClick {
     private lateinit var notesAdapter: NotesAdapter
     private var pos = 0
     private lateinit var optionDialog: AlertDialog
+    private var disposable: Disposable? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -103,8 +109,19 @@ class NoteListActivity : AppCompatActivity(), NotesAdapter.OnNoteItemClick {
                 when (i) {
                     0 -> {
                         noteDatabase.getNoteDao().deleteNote(notes[pos])
-                        notes.removeAt(pos)
-                        listVisibility()
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe({
+                                notes.removeAt(pos)
+                                listVisibility()
+                            }, { e ->
+                                Toast.makeText(
+                                    this,
+                                    "Delete failed due to " + e.message,
+                                    Toast.LENGTH_SHORT
+                                ).show();
+                                e.printStackTrace()
+                            })
                     }
                     1 -> startActivityForResult(
                         Intent(
@@ -142,6 +159,7 @@ class NoteListActivity : AppCompatActivity(), NotesAdapter.OnNoteItemClick {
         if (optionDialog.isShowing) {
             optionDialog.dismiss()
         }
+        disposable?.dispose()
         super.onDestroy()
     }
 }

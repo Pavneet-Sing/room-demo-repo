@@ -1,15 +1,15 @@
 package com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.ui
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.R
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.NoteDataBase
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.model.Note
 import com.google.android.material.textfield.TextInputEditText
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 /**
@@ -22,7 +22,8 @@ class AddNoteActivity : AppCompatActivity() {
     private lateinit var noteDatabase: NoteDataBase
     private lateinit var note: Note
     private var update = false
-    private var disposable: Disposable? = null
+    private lateinit var compositeDisposable: CompositeDisposable
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_note)
@@ -30,6 +31,7 @@ class AddNoteActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
+        compositeDisposable = CompositeDisposable()
         et_title = findViewById(R.id.et_title)
         et_content = findViewById(R.id.et_content)
         noteDatabase = NoteDataBase.getInstance(this@AddNoteActivity)
@@ -49,14 +51,26 @@ class AddNoteActivity : AppCompatActivity() {
             if (update) {
                 note.content = et_content.getText().toString()
                 note.title = et_title.getText().toString()
-                noteDatabase.getNoteDao().updateNote(note)
-                finish()
+                compositeDisposable.add(noteDatabase.getNoteDao().updateNote(note)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { finish() },
+                        { e ->
+                            Toast.makeText(
+                                this,
+                                "Update failed due to " + e.message,
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            e.printStackTrace()
+                        }
+                    ))
             } else {
                 note = Note(
                     content = et_content.text.toString(), // using placeholder name to avoid passing long id, as using default as 0
                     title = et_title.text.toString()
                 )
-                disposable = noteDatabase.getNoteDao().insertNote(note)
+                compositeDisposable.add(noteDatabase.getNoteDao().insertNote(note)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -65,15 +79,13 @@ class AddNoteActivity : AppCompatActivity() {
                             finish()
                         },
                         { obj: Throwable -> obj.printStackTrace() }
-                    )
+                    ))
             }
         }
     }
 
     override fun onDestroy() {
-        disposable?.run {
-            dispose()
-        }
+        compositeDisposable.dispose()
         super.onDestroy()
     }
 }

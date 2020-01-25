@@ -28,8 +28,8 @@ public abstract class NoteDatabase extends RoomDatabase {
     // synchronized is use to avoid concurrent access in multithred environment
     public static /*synchronized*/ NoteDatabase getInstance(Context context) {
         if (null == noteDB) {
-            synchronized (NoteDatabase.class){ // dual lock
-                if (null == noteDB){
+            synchronized (NoteDatabase.class) { // dual lock
+                if (null == noteDB) {
                     noteDB = buildDatabaseInstance(context);
                 }
             }
@@ -40,7 +40,7 @@ public abstract class NoteDatabase extends RoomDatabase {
     private static NoteDatabase buildDatabaseInstance(Context context) {
         return Room.databaseBuilder(context,
                 NoteDatabase.class,
-                Constants.DB_NAME).allowMainThreadQueries().build();
+                Constants.DB_NAME).build();
     }
 
     public void cleanUp() {

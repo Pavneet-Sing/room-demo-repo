@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class NoteListActivity extends AppCompatActivity implements NotesAdapter.OnNoteItemClick {
 
     private TextView textViewMsg;
@@ -29,6 +34,7 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
     private NotesAdapter notesAdapter;
     private int pos;
     private AlertDialog optionDialog;
+    private Disposable disposable;
 
 
     @Override
@@ -88,9 +94,17 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
                 .setItems(new String[]{"Delete", "Update"}, (dialogInterface, i) -> {
                     switch (i) {
                         case 0:
-                            noteDatabase.getNoteDao().deleteNote(notes.get(pos));
-                            notes.remove(pos);
-                            listVisibility();
+                            disposable = noteDatabase.getNoteDao().deleteNote(notes.get(pos))
+                                    .subscribeOn(Schedulers.io())
+                                    .observeOn(AndroidSchedulers.mainThread())
+                                    .subscribe(() -> {
+                                        notes.remove(pos);
+                                        listVisibility();
+                                    }, e -> {
+                                        Toast.makeText(this, "Delete failed due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        e.printStackTrace();
+                                    });
+
                             break;
                         case 1:
                             startActivityForResult(
@@ -128,6 +142,9 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
         noteDatabase.cleanUp();
         if (optionDialog.isShowing())
             optionDialog.dismiss();
+        if (disposable != null) {
+            disposable.dispose();
+        }
         super.onDestroy();
     }
 }
