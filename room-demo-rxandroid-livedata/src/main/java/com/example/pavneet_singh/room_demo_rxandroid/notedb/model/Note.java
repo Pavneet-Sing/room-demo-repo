@@ -29,6 +29,7 @@ public class Note implements Serializable {
 
     private Date date;
 
+    // Todo: remoe this
 //    public Note(int note_id, String content, String title, Date date) {
 //        this.note_id = note_id;
 //        this.content = content;

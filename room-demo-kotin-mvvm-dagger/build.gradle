@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -58,7 +60,7 @@ dependencies {
     // room database dependencies
     def room_version = "2.2.3"
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation "androidx.room:room-rxjava2:$room_version"
     // Kotlin Extensions and Coroutines support for Room
