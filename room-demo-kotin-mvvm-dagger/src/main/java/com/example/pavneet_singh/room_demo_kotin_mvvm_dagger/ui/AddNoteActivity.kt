@@ -17,8 +17,8 @@ import io.reactivex.schedulers.Schedulers
  */
 
 class AddNoteActivity : AppCompatActivity() {
-    private lateinit var et_title: TextInputEditText
-    private lateinit var et_content: TextInputEditText
+    private lateinit var etTitle: TextInputEditText
+    private lateinit var etContent: TextInputEditText
     private lateinit var noteDatabase: NoteDataBase
     private lateinit var note: Note
     private var update = false
@@ -32,25 +32,25 @@ class AddNoteActivity : AppCompatActivity() {
 
     private fun initUI() {
         compositeDisposable = CompositeDisposable()
-        et_title = findViewById(R.id.et_title)
-        et_content = findViewById(R.id.et_content)
+        etTitle = findViewById(R.id.et_title)
+        etContent = findViewById(R.id.et_content)
         noteDatabase = NoteDataBase.getInstance(this@AddNoteActivity)
         val button = findViewById<Button>(R.id.but_save)
 
         intent.getSerializableExtra("note")?.let {
             (it as Note).apply {
                 note = this
-                supportActionBar!!.setTitle("Update Note")
+                supportActionBar!!.title = "Update Note"
                 update = true
                 button.text = "Update"
-                et_title.setText(title)
-                et_content.setText(content)
+                etTitle.setText(title)
+                etContent.setText(content)
             }
         }
         button.setOnClickListener {
             if (update) {
-                note.content = et_content.getText().toString()
-                note.title = et_title.getText().toString()
+                note.content = etContent.text.toString()
+                note.title = etTitle.text.toString()
                 compositeDisposable.add(noteDatabase.getNoteDao().updateNote(note)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -67,8 +67,8 @@ class AddNoteActivity : AppCompatActivity() {
                     ))
             } else {
                 note = Note(
-                    content = et_content.text.toString(), // using placeholder name to avoid passing long id, as using default as 0
-                    title = et_title.text.toString()
+                    content = etContent.text.toString(), // using placeholder name to avoid passing long id, as using default as 0
+                    title = etTitle.text.toString()
                 )
                 compositeDisposable.add(noteDatabase.getNoteDao().insertNote(note)
                     .subscribeOn(Schedulers.io())

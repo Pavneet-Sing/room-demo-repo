@@ -20,7 +20,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.util.*
 
 /**
  * Created by Pavneet_Singh on 2020-01-25.
@@ -75,13 +74,13 @@ class NoteListActivity : AppCompatActivity(), NotesAdapter.OnNoteItemClick {
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener(listener)
         recyclerView = findViewById(R.id.recycler_view)
-        recyclerView.setLayoutManager(LinearLayoutManager(this@NoteListActivity))
-        notes = ArrayList<Note>()
+        recyclerView.layoutManager = LinearLayoutManager(this@NoteListActivity)
+        notes = mutableListOf()
         notesAdapter = NotesAdapter(
             notes,
             this@NoteListActivity
         )
-        recyclerView.setAdapter(notesAdapter)
+        recyclerView.adapter = notesAdapter
         optionDialog = getItemOptionBuilder()
     }
 
@@ -119,16 +118,15 @@ class NoteListActivity : AppCompatActivity(), NotesAdapter.OnNoteItemClick {
                                     this,
                                     "Delete failed due to " + e.message,
                                     Toast.LENGTH_SHORT
-                                ).show();
+                                ).show()
                                 e.printStackTrace()
                             })
                     }
-                    1 -> startActivityForResult(
+                    1 -> startActivity(
                         Intent(
                             this@NoteListActivity,
                             AddNoteActivity::class.java
-                        ).putExtra("note", notes[pos]),
-                        100
+                        ).putExtra("note", notes[pos])
                     )
                 }
             }.create()

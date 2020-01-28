@@ -80,7 +80,7 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
         optionDialog = getItemOptionBuilder();
     }
 
-    private View.OnClickListener listener = view -> startActivity(new Intent(NoteListActivity.this, AddNoteActivity.class));
+    private final View.OnClickListener listener = view -> startActivity(new Intent(NoteListActivity.this, AddNoteActivity.class));
 
     @Override
     public void onNoteClick(final int pos) {

@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pavneet_singh.room_demo_rxandroid.R;
 import com.example.pavneet_singh.room_demo_rxandroid.notedb.model.Note;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 
@@ -21,21 +23,20 @@ import java.util.List;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.BeanHolder> {
 
-    private List<Note> list;
-    private Context context;
-    private LayoutInflater layoutInflater;
-    private OnNoteItemClick onNoteItemClick;
+    private final List<Note> list;
+    private final LayoutInflater layoutInflater;
+    private final OnNoteItemClick onNoteItemClick;
 
     public NotesAdapter(List<Note> list, Context context) {
         layoutInflater = LayoutInflater.from(context);
         this.list = list;
-        this.context = context;
         this.onNoteItemClick = (OnNoteItemClick) context;
     }
 
 
+    @NotNull
     @Override
-    public BeanHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public BeanHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.note_list_item, parent, false);
         return new BeanHolder(view);
     }
@@ -54,10 +55,10 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.BeanHolder> 
 
     public class BeanHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView textViewContent;
-        TextView textViewTitle;
+        final TextView textViewContent;
+        final TextView textViewTitle;
 
-        public BeanHolder(View itemView) {
+        BeanHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
             textViewContent = itemView.findViewById(R.id.item_text);
