@@ -1,57 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="4dp"
-    android:orientation="vertical"
-    tools:context=".ui.NoteListActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <data>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/et_title_text"
-            android:inputType="text"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
+        <variable
+            name="addNoteViewModel"
+            type="com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.viewmodels.AddNoteViewModel" />
+    </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/txtInput"
-        android:orientation="vertical">
+        android:layout_margin="4dp"
+        android:orientation="vertical"
+        tools:context=".ui.NoteListActivity">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtInput2"
+            android:id="@+id/txtInput"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_content"
+                android:id="@+id/et_title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="top"
-                android:hint="@string/et_content_text"
-                android:inputType="textMultiLine|textNoSuggestions"
-                android:singleLine="false" />
+                android:layout_height="wrap_content"
+                android:hint="@string/et_title_text"
+                android:inputType="text"
+                android:singleLine="true"
+                android:text="@={addNoteViewModel.note.title}" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/but_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/button_bg"
-            android:text="@string/save" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/txtInput"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInput2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
 
-</RelativeLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="top"
+                    android:hint="@string/et_content_text"
+                    android:inputType="textMultiLine|textNoSuggestions"
+                    android:singleLine="false"
+                    android:text="@={addNoteViewModel.note.content}" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/but_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/button_bg"
+                android:onClick="@{() -> addNoteViewModel.processNote()}"
+                android:text="@{addNoteViewModel.getActionButtonText()}" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
+

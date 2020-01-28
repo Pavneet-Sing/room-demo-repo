@@ -6,5 +6,6 @@
     <string name="et_title_text">Title</string>
     <string name="et_content_text">Content</string>
     <string name="save">Save</string>
+    <string name="update">Update</string>
     <string name="no_notes_found">No Notes Found, Let\'s Add Some!</string>
 </resources>
