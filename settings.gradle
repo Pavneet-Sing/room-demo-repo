@@ -1,1 +1,1 @@
-include ':room-demo-android-q', ':room-demo-rxandroid-livedata', ':room-demo-kotin-mvvm-dagger'
+include ':room-demo-android-q', ':room-demo-rxandroid-livedata', ':room-demo-kotlin-mvvm-dagger'
