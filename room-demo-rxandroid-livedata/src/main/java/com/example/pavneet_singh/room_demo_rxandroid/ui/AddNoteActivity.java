@@ -59,10 +59,8 @@ public class AddNoteActivity extends AppCompatActivity {
                 compositeDisposable.add(noteDatabase.getNoteDao().insertNote(note)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(rowId -> {
-                            note.setNote_id(rowId); // update rowId in database
-                            finish();
-                        }, Throwable::printStackTrace));
+                        // Can replace rowId -> finish() with this::finish by changing Single to Completable in DAO for insert
+                        .subscribe(rowId -> finish(), Throwable::printStackTrace));
             }
         });
     }

@@ -107,10 +107,9 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
 
                             break;
                         case 1:
-                            startActivityForResult(
+                            startActivity(
                                     new Intent(NoteListActivity.this,
-                                            AddNoteActivity.class).putExtra("note", notes.get(pos)),
-                                    100);
+                                            AddNoteActivity.class).putExtra("note", notes.get(pos)));
 
                             break;
                     }
