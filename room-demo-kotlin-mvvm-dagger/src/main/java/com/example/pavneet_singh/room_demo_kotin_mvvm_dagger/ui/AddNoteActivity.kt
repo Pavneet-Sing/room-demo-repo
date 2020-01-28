@@ -52,8 +52,8 @@ class AddNoteActivity : AppCompatActivity() {
         }
         intent.getBooleanExtra("view", false).let {
             if (it){
-                et_title.isEnabled = false
-                et_content.isEnabled = false
+                et_title.isFocusableInTouchMode = false
+                et_content.isFocusableInTouchMode = false
                 button.visibility = View.GONE
             }
         }
