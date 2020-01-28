@@ -10,7 +10,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,9 +20,6 @@ import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.model.Note
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.util.DependenciesProvider
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.viewmodels.NoteListViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by Pavneet_Singh on 2020-01-25.

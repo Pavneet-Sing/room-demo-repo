@@ -78,13 +78,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     // for lazy delegate support
     implementation "androidx.activity:activity-ktx:$activity_version"
-
-
-    // Todo: remove after replacing with coroutines
-    // RxJava and RxAndroid dependencies
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.17'
-
+    
     // Testing
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

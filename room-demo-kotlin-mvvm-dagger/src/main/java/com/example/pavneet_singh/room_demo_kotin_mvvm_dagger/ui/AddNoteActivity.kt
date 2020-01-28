@@ -13,7 +13,6 @@ import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.model.Note
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.util.DependenciesProvider
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.viewmodels.AddNoteViewModel
 import com.google.android.material.textfield.TextInputEditText
-import io.reactivex.disposables.CompositeDisposable
 
 /**
  * Created by Pavneet_Singh on 2020-01-25.
