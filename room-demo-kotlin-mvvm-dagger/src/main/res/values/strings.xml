@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Room Demo Kotlin</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_note_list">Note List</string>
+    <string name="title_activity_add_note">Add Note</string>
+    <string name="et_title_text">Title</string>
+    <string name="et_content_text">Content</string>
+    <string name="save">Save</string>
+    <string name="no_notes_found">No Notes Found, Let\'s Add Some!</string>
+</resources>

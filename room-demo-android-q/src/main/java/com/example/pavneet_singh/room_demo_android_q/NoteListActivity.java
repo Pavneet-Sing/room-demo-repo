@@ -47,7 +47,7 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
 
     private static class RetrieveTask extends AsyncTask<Void, Void, List<Note>> {
 
-        private WeakReference<NoteListActivity> activityReference;
+        private final WeakReference<NoteListActivity> activityReference;
 
         // only retain a weak reference to the activity
         RetrieveTask(NoteListActivity context) {
@@ -87,7 +87,7 @@ public class NoteListActivity extends AppCompatActivity implements NotesAdapter.
         recyclerView.setAdapter(notesAdapter);
     }
 
-    private View.OnClickListener listener = new View.OnClickListener() {
+    private final View.OnClickListener listener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             startActivityForResult(new Intent(NoteListActivity.this, AddNoteActivity.class), 100);

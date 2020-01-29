@@ -8,8 +8,11 @@ import androidx.room.PrimaryKey;
 
 import com.example.pavneet_singh.room_demo_android_q.util.Constants;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by Pavneet_Singh on 12/30/17.
@@ -86,7 +89,7 @@ public class Note implements Serializable {
         Note note = (Note) o;
 
         if (note_id != note.note_id) return false;
-        return title != null ? title.equals(note.title) : note.title == null;
+        return Objects.equals(title, note.title);
     }
 
 
@@ -97,6 +100,7 @@ public class Note implements Serializable {
         return result;
     }
 
+    @NotNull
     @Override
     public String toString() {
         return "Note{" +

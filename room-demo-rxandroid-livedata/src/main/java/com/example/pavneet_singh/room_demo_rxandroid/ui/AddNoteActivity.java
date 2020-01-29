@@ -2,6 +2,7 @@ package com.example.pavneet_singh.room_demo_rxandroid.ui;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,7 +12,7 @@ import com.example.pavneet_singh.room_demo_rxandroid.notedb.model.Note;
 import com.google.android.material.textfield.TextInputEditText;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class AddNoteActivity extends AppCompatActivity {
@@ -20,7 +21,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private NoteDatabase noteDatabase;
     private Note note;
     private boolean update;
-    private Disposable disposable;
+    private CompositeDisposable compositeDisposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +31,7 @@ public class AddNoteActivity extends AppCompatActivity {
     }
 
     private void initUI() {
+        compositeDisposable = new CompositeDisposable();
         et_title = findViewById(R.id.et_title);
         et_content = findViewById(R.id.et_content);
         noteDatabase = NoteDatabase.getInstance(AddNoteActivity.this);
@@ -45,25 +47,27 @@ public class AddNoteActivity extends AppCompatActivity {
             if (update) {
                 note.setContent(et_content.getText().toString());
                 note.setTitle(et_title.getText().toString());
-                noteDatabase.getNoteDao().updateNote(note);
-                finish();
-            } else {
-                note = new Note(et_content.getText().toString(), et_title.getText().toString());
-                disposable = noteDatabase.getNoteDao().insertNote(note)
+                compositeDisposable.add(noteDatabase.getNoteDao().updateNote(note)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(rowId -> {
-                            note.setNote_id(rowId); // update rowId in database
-                            finish();
-                        }, Throwable::printStackTrace);
+                        .subscribe(this::finish, e -> {
+                            Toast.makeText(this, "Update failed due to " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            e.printStackTrace();
+                        }));
+            } else {
+                note = new Note(et_content.getText().toString(), et_title.getText().toString());
+                compositeDisposable.add(noteDatabase.getNoteDao().insertNote(note)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        // Can replace rowId -> finish() with this::finish by changing Single to Completable in DAO for insert
+                        .subscribe(rowId -> finish(), Throwable::printStackTrace));
             }
         });
     }
 
     @Override
     protected void onDestroy() {
-        if (disposable != null)
-            disposable.dispose();
+        compositeDisposable.dispose();
         super.onDestroy();
     }
 }

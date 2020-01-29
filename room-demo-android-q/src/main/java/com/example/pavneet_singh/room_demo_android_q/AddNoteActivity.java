@@ -60,8 +60,8 @@ public class AddNoteActivity extends AppCompatActivity {
 
     private static class InsertTask extends AsyncTask<Void, Void, Boolean> {
 
-        private WeakReference<AddNoteActivity> activityReference;
-        private Note note;
+        private final WeakReference<AddNoteActivity> activityReference;
+        private final Note note;
 
         // only retain a weak reference to the activity
         InsertTask(AddNoteActivity context, Note note) {
