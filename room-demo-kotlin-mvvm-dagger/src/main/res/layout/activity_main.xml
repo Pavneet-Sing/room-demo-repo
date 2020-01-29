@@ -1,50 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="ui.NoteListActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="noteListViewModel"
+            type="com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.viewmodels.NoteListViewModel" />
+
+        <variable
+            name="notesAdapter"
+            type="com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.adapter.NotesAdapter" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        tools:context="ui.NoteListActivity">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:orientation="vertical">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+                android:layout_height="wrap_content"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        </com.google.android.material.appbar.AppBarLayout>
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-
-    <include
-        android:id="@+id/include"
-        layout="@layout/content_main" />
+            </com.google.android.material.appbar.AppBarLayout>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_input_add" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="@{noteListViewModel.isListEmpty ? View.GONE: View.VISIBLE }"
+                app:adapter="@{notesAdapter}"
+                app:data="@{noteListViewModel.notesLiveData}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </LinearLayout>
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/content_main"
+            android:visibility="@{noteListViewModel.isListEmpty ? View.VISIBLE: View.GONE }" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:srcCompat="@android:drawable/ic_input_add" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
