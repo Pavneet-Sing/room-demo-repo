@@ -4,8 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.model.Note
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.util.Constants
-import io.reactivex.Completable
-import io.reactivex.Single
 
 /**
  * Created by Pavneet_Singh on 2020-01-25.
@@ -13,6 +11,11 @@ import io.reactivex.Single
 
 @Dao
 interface NoteDao {
+
+    /**
+     * Room will take care of managing execution on background thread with LiveData
+     * Therefore no need of suspend and coroutines
+     */
     @Query("SELECT * FROM " + Constants.TABLE_NAME_NOTE)
     fun getNotes(): LiveData<List<Note>>
 
@@ -21,21 +24,21 @@ interface NoteDao {
      * @param note, object to be inserted
      */
     @Insert
-    fun insertNote(note: Note): Single<Long>
+    suspend fun insertNote(note: Note): Long
 
     /*
      * update the object in database
      * @param note, object to be updated
      */
     @Update
-    fun updateNote(repos: Note): Completable
+    suspend fun updateNote(repos: Note): Int
 
     /*
      * delete the object from database
      * @param note, object to be deleted
      */
     @Delete
-    fun deleteNote(note: Note): Completable
+    suspend fun deleteNote(note: Note): Int
 
     // Note... is varargs, here note is an array
 /*
@@ -43,5 +46,5 @@ interface NoteDao {
      * @param note, array of oject to be deleted
      */
     @Delete
-    fun deleteNotes(vararg note: Note)
+    suspend fun deleteNotes(vararg note: Note): Int
 }
