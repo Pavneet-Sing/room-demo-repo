@@ -23,13 +23,11 @@ import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.util.DateRoomConver
 )
 abstract class NoteDataBase : RoomDatabase() {
     abstract fun getNoteDao(): NoteDao
-    fun cleanUp() {
-        noteDB = null
-    }
 
     companion object {
         private var noteDB: NoteDataBase? = null
         // synchronized is use to avoid concurrent access in multithred environment
+        @JvmStatic
         fun  /*synchronized*/getInstance(context: Context): NoteDataBase {
             if (null == noteDB) {
                 synchronized(NoteDataBase::class) {
@@ -42,6 +40,7 @@ abstract class NoteDataBase : RoomDatabase() {
             return noteDB!!
         }
 
+        @JvmStatic
         private fun buildDatabaseInstance(context: Context): NoteDataBase {
             return Room.databaseBuilder(
                 context,

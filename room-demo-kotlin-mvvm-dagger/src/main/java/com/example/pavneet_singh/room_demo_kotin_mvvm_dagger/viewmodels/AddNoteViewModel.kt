@@ -7,12 +7,13 @@ import androidx.lifecycle.viewModelScope
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.NoteDataBase
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.model.Note
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by Pavneet_Singh on 2020-01-28.
  */
 
-class AddNoteViewModel(private val noteDatabase: NoteDataBase) : ViewModel() {
+class AddNoteViewModel @Inject constructor(private val noteDatabase: NoteDataBase) : ViewModel() {
     private val _finishActivityEvent = MutableLiveData<Long>()
 
     val successEvent: LiveData<Long>
@@ -45,6 +46,5 @@ class AddNoteViewModel(private val noteDatabase: NoteDataBase) : ViewModel() {
         }
     }
 
-    fun getActionButtonText() = if(isUpdate) "Update" else "Save"
-
+    fun getActionButtonText() = if (isUpdate) "Update" else "Save"
 }

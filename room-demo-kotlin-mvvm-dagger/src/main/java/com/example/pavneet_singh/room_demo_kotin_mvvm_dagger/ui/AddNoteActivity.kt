@@ -5,28 +5,26 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.R
+import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.base.BaseActivity
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.databinding.ActivityAddNoteBinding
-import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.NoteDataBase
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.model.Note
-import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.util.DependenciesProvider
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.viewmodels.AddNoteViewModel
-import com.google.android.material.textfield.TextInputEditText
+import javax.inject.Inject
 
 /**
  * Created by Pavneet_Singh on 2020-01-25.
  */
 
-class AddNoteActivity : AppCompatActivity() {
-    private lateinit var et_title: TextInputEditText
-    private lateinit var et_content: TextInputEditText
-    private lateinit var noteDatabase: NoteDataBase
+class AddNoteActivity : BaseActivity() {
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var binding: ActivityAddNoteBinding
     private val addNoteViewModel: AddNoteViewModel by viewModels {
-        DependenciesProvider.getAddNoteFactory(this@AddNoteActivity)
+        viewModelFactory
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,9 +36,6 @@ class AddNoteActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
-        et_title = findViewById(R.id.et_title)
-        et_content = findViewById(R.id.et_content)
-        noteDatabase = NoteDataBase.getInstance(this@AddNoteActivity)
         val button = findViewById<Button>(R.id.but_save)
 
         intent.getSerializableExtra("note")?.let {
@@ -53,8 +48,8 @@ class AddNoteActivity : AppCompatActivity() {
 
         intent.getBooleanExtra("viewNote", false).let {
             if (it) {
-                et_title.isFocusableInTouchMode = false
-                et_content.isFocusableInTouchMode = false
+                binding.etTitle.isFocusableInTouchMode = false
+                binding.etContent.isFocusableInTouchMode = false
                 button.visibility = View.GONE
             }
         }

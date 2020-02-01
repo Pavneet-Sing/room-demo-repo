@@ -6,12 +6,13 @@ import androidx.lifecycle.*
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.NoteDataBase
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.model.Note
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 /**
  * Created by Pavneet_Singh on 2020-01-27.
  */
 
-class NoteListViewModel(private val noteDatabase: NoteDataBase) : ViewModel() {
+class NoteListViewModel @Inject constructor(private val noteDatabase: NoteDataBase) : ViewModel() {
 
     private val numOfRowsDeleted = MutableLiveData<Int>()
     val isListEmpty = ObservableBoolean(true)
@@ -27,5 +28,10 @@ class NoteListViewModel(private val noteDatabase: NoteDataBase) : ViewModel() {
         }
         return numOfRowsDeleted
     }
+
+//    override fun onCleared() {
+//        noteDatabase.cleanUp()
+//        super.onCleared()
+//    }
 
 }
