@@ -7,34 +7,35 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.R
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.adapter.NotesAdapter
+import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.base.BaseActivity
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.databinding.ActivityMainBinding
-import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.NoteDataBase
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.model.Note
-import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.util.DependenciesProvider
 import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.viewmodels.NoteListViewModel
+import javax.inject.Inject
 
 /**
  * Created by Pavneet_Singh on 2020-01-25.
  */
 
-class NoteListActivity : AppCompatActivity(), NotesAdapter.OnNoteItemClick {
-    private lateinit var noteDatabase: NoteDataBase
-    private lateinit var notes: MutableList<Note>
-    private lateinit var notesAdapter: NotesAdapter
-    private var pos = 0
+class NoteListActivity : BaseActivity(), NotesAdapter.OnNoteItemClick {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject
+    lateinit var notesAdapter: NotesAdapter
     private lateinit var optionDialog: AlertDialog
     private lateinit var binding: ActivityMainBinding
     private lateinit var note: Note
 
 
     private val noteListViewModel: NoteListViewModel by viewModels {
-        DependenciesProvider.getNoteListFactory(this@NoteListActivity)
+        viewModelFactory
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,11 +73,11 @@ class NoteListActivity : AppCompatActivity(), NotesAdapter.OnNoteItemClick {
         setSupportActionBar(toolbar)
         val fab = binding.fab
         fab.setOnClickListener(listener)
-        notes = mutableListOf()
-        notesAdapter = NotesAdapter(
-            notes,
-            this@NoteListActivity
-        )
+//        notes = mutableListOf()
+//        notesAdapter = NotesAdapter(
+//            notes,
+//            this@NoteListActivity
+//        )
         optionDialog = getItemOptionBuilder()
     }
 
@@ -147,7 +148,6 @@ class NoteListActivity : AppCompatActivity(), NotesAdapter.OnNoteItemClick {
     }
 
     private fun cleanUp() {
-        noteDatabase.cleanUp()
         if (optionDialog.isShowing) {
             optionDialog.dismiss()
         }
