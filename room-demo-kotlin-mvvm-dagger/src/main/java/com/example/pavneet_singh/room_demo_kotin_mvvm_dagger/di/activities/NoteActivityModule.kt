@@ -14,14 +14,13 @@ import dagger.Provides
 @Module
 abstract class NoteActivityModule {
 
-    @Module
+    // Now dagger 2.26 support non-module annotation companion object
+    // https://github.com/google/dagger/releases/tag/dagger-2.26
     companion object {
-        @JvmStatic
         @ActivityScope
         @Provides
         fun getMutableList() = mutableListOf<Note>()
 
-        @JvmStatic
         @ActivityScope
         @Provides
         fun getNotesAdapter(noteListActivity: NoteListActivity, notes: MutableList<Note>) =
