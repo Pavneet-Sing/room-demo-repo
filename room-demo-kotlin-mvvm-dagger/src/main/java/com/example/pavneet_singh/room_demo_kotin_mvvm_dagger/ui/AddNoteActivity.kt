@@ -41,7 +41,7 @@ class AddNoteActivity : BaseActivity() {
         intent.getSerializableExtra("note")?.let {
             (it as Note).apply {
                 addNoteViewModel.note = this
-                supportActionBar!!.setTitle("Update Note")
+                supportActionBar?.title = "Update Note"
                 addNoteViewModel.isUpdate = true
             }
         }

@@ -29,9 +29,4 @@ class NoteListViewModel @Inject constructor(private val noteDatabase: NoteDataBa
         return numOfRowsDeleted
     }
 
-//    override fun onCleared() {
-//        noteDatabase.cleanUp()
-//        super.onCleared()
-//    }
-
 }

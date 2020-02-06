@@ -73,11 +73,6 @@ class NoteListActivity : BaseActivity(), NotesAdapter.OnNoteItemClick {
         setSupportActionBar(toolbar)
         val fab = binding.fab
         fab.setOnClickListener(listener)
-//        notes = mutableListOf()
-//        notesAdapter = NotesAdapter(
-//            notes,
-//            this@NoteListActivity
-//        )
         optionDialog = getItemOptionBuilder()
     }
 
