@@ -56,9 +56,9 @@ Note: This uses `allowMainThreadQueries()` for demonstration and ease, which eit
 Tools:
 ------
 
-[Android Studio Stable Release ](https://developer.android.com/studio/)
-Emulator - Android Q,R
-Testing Device - Android Pie
+- [Android Studio Stable Release ](https://developer.android.com/studio/)
+- Emulator - Android Q,R
+- Testing Device - Android Pie
 
 [0]: https://github.com/ReactiveX/RxAndroid
 [1]: https://android-review.googlesource.com/c/platform/frameworks/base/+/1156409/6/core/java/android/os/AsyncTask.java
