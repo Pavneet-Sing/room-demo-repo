@@ -6,7 +6,8 @@ To start developement from scratch, It is strongly recommended to follow:
 
 [Making a Notes App Using Room Database](https://www.pluralsight.com/guides/making-a-notes-app-using-room-database): [Pavneet Singh](https://github.com/Pavneet-Sing).
 
-### Introduction
+Introduction
+------------
 
 The `room-demo-kotlin-mvvm-dagger` module is the most updated module and will be updated in near future.
 
@@ -15,7 +16,8 @@ It is written in kotlin and based on the MVVM architecture for clean code with D
 It simplifies the code using andorid jetpack with ViewModel, Data-Binding, LiveData, Coroutines, Room and Lifecyclee though if you are a fan of RxAdnroid then can follow the `room-demo-rxandroid-livedata` module.
 
 
-### Structure
+Structure
+---------
 
 This repo is divided into three independent modules which can be labelled as per complexity, based on underlying architecture and libs as:
 
@@ -51,7 +53,8 @@ This repo is divided into three independent modules which can be labelled as per
 
 Note: This uses `allowMainThreadQueries()` for demonstration and ease, which either should be replaced with `AsyncTask` or by `RxJava` or `Coroutines`(view other modules).
 
-### Tools:
+Tools:
+------
 
 [Android Studio Stable Release ](https://developer.android.com/studio/)
 Emulator - Android Q,R
@@ -69,14 +72,16 @@ Testing Device - Android Pie
 [9]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [10]: https://dagger.dev/users-guide
 
-### Contribution
+Contribution
+------------
 
 PRs are welcome though for major changes, raise an issue otherwise
 1. Fork the repo
 2. Create a new branch and commit your changes
 3. Create a PR against `dev` branch.
 
-### License
+License
+-----------
 <details>
 <summary>Vew Apache License</summary>
 
