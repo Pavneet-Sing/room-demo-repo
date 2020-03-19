@@ -37,7 +37,7 @@ This repo is divided into three independent modules which can be labelled as per
 
 #### [room-demo-rxandroid-livedata](room-demo-rxandroid-livedata): Intermediate
 
-- [Java 8][2] - Write concise code with java-8 lambda and methods reference support.
+- [Java 8][11] - Write concise code with java-8 lambda and methods reference support.
 - [RxAndroid][0] - To handle background task management and data transformation.
 - [Lifecycles][5] - Hassle-free UI updates to avoid memory leaks, crashes and smooth task execution flow.
 - [LiveData][6] - Observer pattern based object to deliver data on UI(main) thread.
@@ -46,7 +46,7 @@ This repo is divided into three independent modules which can be labelled as per
 
 #### [room-demo-android-q](room-demo-rxandroid-livedata): Beginner
 
-- [Java 8][2] - Write concise code with java-8 lambda and methods reference support.
+- [Java 8][11] - Write concise code with java-8 lambda and methods reference support.
 - AsyncTask [Deprecated][1] - To handle background task management and data transformation.
 - [Room][7] - SQLite database with ORM.
 - UI - Google material design lib with cardview and recyclerview.
@@ -57,7 +57,7 @@ Tools:
 ------
 
 - [Android Studio Stable Release ](https://developer.android.com/studio/)
-- Emulator - Android Q,R
+- Emulator - Android Q, R
 - Testing Device - Android Pie
 
 [0]: https://github.com/ReactiveX/RxAndroid
@@ -71,6 +71,7 @@ Tools:
 [8]: https://developer.android.com/topic/libraries/architecture/viewmodel
 [9]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [10]: https://dagger.dev/users-guide
+[11]: https://developer.android.com/studio/write/java8-support
 
 Contribution
 ------------
