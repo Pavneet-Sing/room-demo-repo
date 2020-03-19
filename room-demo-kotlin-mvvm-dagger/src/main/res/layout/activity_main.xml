@@ -8,6 +8,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="addNoteListener"
+            type="android.view.View.OnClickListener" />
+
+        <variable
             name="noteListViewModel"
             type="com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.viewmodels.NoteListViewModel" />
 
@@ -64,6 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
+            android:onClick="@{addNoteListener}"
             app:srcCompat="@android:drawable/ic_input_add" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
