@@ -68,11 +68,8 @@ class NoteListActivity : BaseActivity(), NotesAdapter.OnNoteItemClick {
     }
 
     private fun initializeVies() {
-        val toolbar =
-            findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        val fab = binding.fab
-        fab.setOnClickListener(listener)
+        setSupportActionBar(binding.toolbar)
+        binding.addNoteListener = listener
         optionDialog = getItemOptionBuilder()
     }
 
