@@ -78,8 +78,9 @@ Contribution
 
 PRs are welcome though for major changes, raise an issue otherwise
 1. Fork the repo
-2. Create a new branch and commit your changes
-3. Create a PR against `dev` branch.
+2. Create a new branch e.g. feature/feature-name, issue/issue-name
+3. Ccommit your changes
+4. Raise a PR
 
 License
 -----------
