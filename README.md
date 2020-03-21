@@ -1,3 +1,4 @@
+
 <h1 align="center"> Room-Demo-Repo </h1>
 
 A multi-module repo which is a successor of [RoomDemo](https://github.com/Pavneet-Sing/RoomDemo). This repo contains three individual modules, developed using latest trends.
@@ -15,13 +16,21 @@ It is written in kotlin and based on the MVVM architecture for clean code with D
 
 It simplifies the code using andorid jetpack with ViewModel, Data-Binding, LiveData, Coroutines, Room and Lifecyclee though if you are a fan of RxAdnroid then can follow the `room-demo-rxandroid-livedata` module.
 
+Follow [room-demo-kotlin-mvvm-dagger](room-demo-rxandroid-livedata) for clean architecture implementation, recommended by Google in [Guide to app architecture][13]
 
-Structure
+![app guide][12]
+
+
+Dependencies' Description
 ---------
+
+| ![Jetpack_logo][14] | ![kotlin_logo][15] |
+|-------------------- | ------------------ |
+
 
 This repo is divided into three independent modules which can be labelled as per complexity, based on underlying architecture and libs as:
 
-#### [room-demo-kotlin-mvvm-dagger](room-demo-rxandroid-livedata): Advance
+#### [room-demo-kotlin-mvvm-dagger](room-demo-kotlin-mvvm-dagger): Advance
 
 -  MVVM - Google recommended architecture to achieve smooth UI and background task management.
 - [Android KTX][2] - Write concise code as kotlin help to reduce code length by 20 - 40%.
@@ -44,7 +53,7 @@ This repo is divided into three independent modules which can be labelled as per
 - [Room][7] - SQLite database with ORM.
 - UI - Google material design lib with cardview and recyclerview.
 
-#### [room-demo-android-q](room-demo-rxandroid-livedata): Beginner
+#### [room-demo-android-q](room-demo-android-q): Beginner
 
 - [Java 8][11] - Write concise code with java-8 lambda and methods reference support.
 - AsyncTask [Deprecated][1] - To handle background task management and data transformation.
@@ -72,6 +81,10 @@ Tools:
 [9]: https://kotlinlang.org/docs/reference/coroutines-overview.html
 [10]: https://dagger.dev/users-guide
 [11]: https://developer.android.com/studio/write/java8-support
+[12]: https://user-images.githubusercontent.com/11755381/77223442-9c466100-6b82-11ea-89fc-0ac92b0c2104.png
+[13]: https://developer.android.com/jetpack/docs/guide
+[14]: https://user-images.githubusercontent.com/11755381/77223586-f0057a00-6b83-11ea-8fd0-ca1055ac827d.png
+[15]: https://user-images.githubusercontent.com/11755381/77223617-32c75200-6b84-11ea-9477-bca18408173f.png
 
 Contribution
 ------------
