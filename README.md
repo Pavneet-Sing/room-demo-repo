@@ -1,9 +1,9 @@
 
 <h1 align="center"> Room-Demo-Repo </h1>
 
-A multi-module repo which is a successor of [RoomDemo](https://github.com/Pavneet-Sing/RoomDemo). This repo contains three individual modules, developed using latest trends.
+A multi-module repository which is a successor of [RoomDemo](https://github.com/Pavneet-Sing/RoomDemo). This repository contains three individual modules, developed using latest trends.
 
-To start developement from scratch, It is strongly recommended to follow:
+To start development from scratch, It is strongly recommended to follow:
 
 [Making a Notes App Using Room Database](https://www.pluralsight.com/guides/making-a-notes-app-using-room-database): [Pavneet Singh](https://github.com/Pavneet-Sing).
 
@@ -12,7 +12,7 @@ Introduction
 
 The `room-demo-kotlin-mvvm-dagger` module is the most updated module and will be updated in near future.
 
-It is written in kotlin and based on the MVVM architecture for clean code with Dagger 2, to implement unit testing.
+It is written in kotlin and based on the MVVM architecture for clean code architecture with Dagger 2, to implement unit testing.
 
 It simplifies the code using andorid jetpack with ViewModel, Data-Binding, LiveData, Coroutines, Room and Lifecyclee though if you are a fan of RxAdnroid then can follow the `room-demo-rxandroid-livedata` module.
 
@@ -28,7 +28,7 @@ Dependencies' Description
 |-------------------- | ------------------ |
 
 
-This repo is divided into three independent modules which can be labelled as per complexity, based on underlying architecture and libs as:
+This repository is divided into three independent modules which can be labelled as per complexity, based on underlying architecture and libs as:
 
 #### [room-demo-kotlin-mvvm-dagger](room-demo-kotlin-mvvm-dagger): Advance
 
@@ -42,7 +42,7 @@ This repo is divided into three independent modules which can be labelled as per
 - [ViewModel][8] - A logical entity to handle actions and background tasks with data persistence via viewmodelProviders and factory.
 - [Kotlin Coroutines][9]: For background thread management and execution.
 - [Dagger 2][10] For dependency injector.
-- UI - Google material design lib with cardview and recyclerview.
+- UI - Google material design lib with CardView and RecyclerView.
 
 #### [room-demo-rxandroid-livedata](room-demo-rxandroid-livedata): Intermediate
 
@@ -51,14 +51,14 @@ This repo is divided into three independent modules which can be labelled as per
 - [Lifecycles][5] - Hassle-free UI updates to avoid memory leaks, crashes and smooth task execution flow.
 - [LiveData][6] - Observer pattern based object to deliver data on UI(main) thread.
 - [Room][7] - SQLite database with ORM.
-- UI - Google material design lib with cardview and recyclerview.
+- UI - Google material design lib with CardView and RecyclerView.
 
 #### [room-demo-android-q](room-demo-android-q): Beginner
 
-- [Java 8][11] - Write concise code with java-8 lambda and methods reference support.
+- [Java 8][11] - Write concise code with Java-8 lambda and methods reference support.
 - AsyncTask [Deprecated][1] - To handle background task management and data transformation.
 - [Room][7] - SQLite database with ORM.
-- UI - Google material design lib with cardview and recyclerview.
+- UI - Google material design lib with CardView and RecyclerView.
 
 Note: This uses `allowMainThreadQueries()` for demonstration and ease, which either should be replaced with `AsyncTask` or by `RxJava` or `Coroutines`(view other modules).
 
@@ -92,7 +92,7 @@ Contribution
 PRs are welcome though for major changes, raise an issue otherwise
 1. Fork the repo
 2. Create a new branch e.g. feature/feature-name, issue/issue-name
-3. Ccommit your changes
+3. Commit your changes
 4. Raise a PR
 
 License
