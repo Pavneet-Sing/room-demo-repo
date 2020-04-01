@@ -13,13 +13,13 @@ import java.util.*
 
 @Entity(tableName = Constants.TABLE_NAME_NOTE)
 data class Note(
-    @PrimaryKey(autoGenerate = true)
-    var note_id: Long = 0,
+        @PrimaryKey(autoGenerate = true)
+        var note_id: Long = 0,
 
-    // column name will be "note_content" instead of "content" in table
-    @ColumnInfo(name = "note_content")
-    var content: String,
+        // column name will be "note_content" instead of "content" in table
+        @ColumnInfo(name = "note_content")
+        var content: String,
 
-    var title: String,
-    val date: Date = Date(System.currentTimeMillis())
+        var title: String,
+        val date: Date = Date(System.currentTimeMillis())
 ) : Serializable

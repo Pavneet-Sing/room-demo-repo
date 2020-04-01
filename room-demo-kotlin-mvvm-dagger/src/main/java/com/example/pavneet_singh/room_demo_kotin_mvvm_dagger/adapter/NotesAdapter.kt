@@ -17,29 +17,29 @@ import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.notedb.model.Note
  */
 
 class NotesAdapter(
-    private var list: List<Note>,
-    context: Context
+        private var list: List<Note>,
+        context: Context
 ) :
-    RecyclerView.Adapter<NotesAdapter.NoteHolder?>(), BindingAdapterI<List<Note>> {
+        RecyclerView.Adapter<NotesAdapter.NoteHolder?>(), BindingAdapterI<List<Note>> {
     private val layoutInflater: LayoutInflater = LayoutInflater.from(context)
     private val onNoteItemClick: OnNoteItemClick
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+            parent: ViewGroup,
+            viewType: Int
     ): NoteHolder {
         return NoteHolder(
-            DataBindingUtil.inflate(
-                layoutInflater,
-                R.layout.note_list_item,
-                parent,
-                false
-            )
+                DataBindingUtil.inflate(
+                        layoutInflater,
+                        R.layout.note_list_item,
+                        parent,
+                        false
+                )
         )
     }
 
     override fun onBindViewHolder(
-        holder: NoteHolder,
-        position: Int
+            holder: NoteHolder,
+            position: Int
     ) = holder.bind(list[position])
 
     override fun getItemCount(): Int {
@@ -47,7 +47,7 @@ class NotesAdapter(
     }
 
     inner class NoteHolder(private val binding: NoteListItemBinding) :
-        BaseBindViewHolder<Note>(binding.root) {
+            BaseBindViewHolder<Note>(binding.root) {
 
         init {
             itemView.setOnClickListener(this)

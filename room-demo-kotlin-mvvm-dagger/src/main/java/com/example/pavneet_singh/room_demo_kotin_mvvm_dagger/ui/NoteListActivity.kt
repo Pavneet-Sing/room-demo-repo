@@ -7,7 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
@@ -27,6 +26,7 @@ class NoteListActivity : BaseActivity(), NotesAdapter.OnNoteItemClick {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
     @Inject
     lateinit var notesAdapter: NotesAdapter
     private lateinit var optionDialog: AlertDialog
@@ -74,14 +74,14 @@ class NoteListActivity : BaseActivity(), NotesAdapter.OnNoteItemClick {
     }
 
     private val listener =
-        View.OnClickListener {
-            startActivity(
-                Intent(
-                    this@NoteListActivity,
-                    AddNoteActivity::class.java
+            View.OnClickListener {
+                startActivity(
+                        Intent(
+                                this@NoteListActivity,
+                                AddNoteActivity::class.java
+                        )
                 )
-            )
-        }
+            }
 
     override fun onNoteClick(note: Note) {
         this.note = note
@@ -90,35 +90,35 @@ class NoteListActivity : BaseActivity(), NotesAdapter.OnNoteItemClick {
 
     private fun getItemOptionBuilder(): AlertDialog {
         return AlertDialog.Builder(this@NoteListActivity)
-            .setTitle("Select Options")
-            .setItems(
-                arrayOf("View", "Update", "Delete")
-            ) { _: DialogInterface?, i: Int ->
-                when (i) {
-                    0 -> showNoteDetails()
-                    1 -> startActivityToAddNote()
-                    2 -> deleteNote()
-                }
-            }.create()
+                .setTitle("Select Options")
+                .setItems(
+                        arrayOf("View", "Update", "Delete")
+                ) { _: DialogInterface?, i: Int ->
+                    when (i) {
+                        0 -> showNoteDetails()
+                        1 -> startActivityToAddNote()
+                        2 -> deleteNote()
+                    }
+                }.create()
     }
 
     private fun startActivityToAddNote() {
         startActivity(
-            getAddActivityIntent()
+                getAddActivityIntent()
         )
     }
 
     private fun showNoteDetails() {
         startActivity(
-            getAddActivityIntent()
-                .putExtra("viewNote", true)
+                getAddActivityIntent()
+                        .putExtra("viewNote", true)
         )
     }
 
     private fun getAddActivityIntent(): Intent {
         return Intent(
-            this@NoteListActivity,
-            AddNoteActivity::class.java
+                this@NoteListActivity,
+                AddNoteActivity::class.java
         ).putExtra("note", note)
     }
 
@@ -126,9 +126,9 @@ class NoteListActivity : BaseActivity(), NotesAdapter.OnNoteItemClick {
         noteListViewModel.deleteNote(note).observe(this) {
             if (it < 0) {
                 Toast.makeText(
-                    this,
-                    "Deletion failed",
-                    Toast.LENGTH_SHORT
+                        this,
+                        "Deletion failed",
+                        Toast.LENGTH_SHORT
                 ).show()
             }
         }

@@ -13,12 +13,12 @@ import javax.inject.Singleton
 
 @Singleton
 @Component(
-    modules = [
-        AndroidInjectionModule::class,
-        ActivityBindingModule::class,
-        DataBaseModule::class,
-        ViewModelModule::class
-    ]
+        modules = [
+            AndroidInjectionModule::class,
+            ActivityBindingModule::class,
+            DataBaseModule::class,
+            ViewModelModule::class
+        ]
 )
 interface AppComponent : AndroidInjector<NoteApplication> {
 

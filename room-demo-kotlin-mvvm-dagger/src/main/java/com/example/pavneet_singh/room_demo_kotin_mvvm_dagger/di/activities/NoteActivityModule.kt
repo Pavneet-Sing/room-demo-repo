@@ -24,7 +24,7 @@ abstract class NoteActivityModule {
         @ActivityScope
         @Provides
         fun getNotesAdapter(noteListActivity: NoteListActivity, notes: MutableList<Note>) =
-            NotesAdapter(notes, noteListActivity)
+                NotesAdapter(notes, noteListActivity)
     }
 
 }
