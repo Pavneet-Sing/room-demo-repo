@@ -15,17 +15,18 @@ import com.example.pavneet_singh.room_demo_kotin_mvvm_dagger.util.DateRoomConver
  */
 
 @Database(
-    entities = [Note::class],
-    version = 1
+        entities = [Note::class],
+        version = 1
 )
 @TypeConverters(
-    DateRoomConverter::class
+        DateRoomConverter::class
 )
 abstract class NoteDataBase : RoomDatabase() {
     abstract fun getNoteDao(): NoteDao
 
     companion object {
         private var noteDB: NoteDataBase? = null
+
         // synchronized is use to avoid concurrent access in multithred environment
         @JvmStatic
         fun  /*synchronized*/getInstance(context: Context): NoteDataBase {
@@ -43,9 +44,9 @@ abstract class NoteDataBase : RoomDatabase() {
         @JvmStatic
         private fun buildDatabaseInstance(context: Context): NoteDataBase {
             return Room.databaseBuilder(
-                context,
-                NoteDataBase::class.java,
-                Constants.DB_NAME
+                    context,
+                    NoteDataBase::class.java,
+                    Constants.DB_NAME
             ).build()
         }
     }

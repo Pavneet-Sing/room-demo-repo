@@ -14,8 +14,8 @@ class DataBaseModule {
 
     @Provides
     fun getRoomDB(context: Application) =
-        NoteDataBase.getInstance(
-            context
-        )
+            NoteDataBase.getInstance(
+                    context
+            )
 
 }
