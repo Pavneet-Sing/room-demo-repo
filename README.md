@@ -28,7 +28,7 @@ Dependencies' Description
 |-------------------- | ------------------ |
 
 
-This repository is divided into three independent modules which can be labelled as per complexity, based on underlying architecture and libs as:
+This repository is divided into three independent modules which can be labeled as per complexity, based on underlying architecture and libs as:
 
 #### [room-demo-kotlin-mvvm-dagger](room-demo-kotlin-mvvm-dagger): Advance
 
@@ -98,10 +98,10 @@ PRs are welcome though for major changes, raise an issue otherwise
 License
 -----------
 <details>
-<summary>Vew Apache License</summary>
+<summary>View Apache License</summary>
 
 ```
-Copyright 2019 Pavneet Singh.
+Copyright 2020 Pavneet Singh.
 
 Licensed to the Apache Software Foundation (ASF) under one or more contributor
 license agreements.  See the NOTICE file distributed with this work for
